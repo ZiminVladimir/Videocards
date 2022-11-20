@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Videocards.Models.Videocard>
+@{
+    ViewData["Title"] = "Каталог товаров";
+}
+<html>
+<head>
+    <title>Магазин видеокарт</title>
+</head>
+<body>
+    <h3>Видеокарты</h3>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        @Html.DropDownList("vendorId", ViewBag.Vendors as SelectList)
+        <input type="submit" class="btn btn-primary" value="Показать" />
+    }
+    <br/>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var vc in Model)
+        {
+            <div class="col-4" style="margin-top: 28px;">
+                <div class="card h-100">
+                    <img src=/Images/@vc.ImageUrl class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@vc.Name</h5>
+                        <a asp-action="Details" asp-controller="Videocards" asp-route-id="@vc.Id" class="btn btn-outline-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-4" style="margin-top: 28px;">
+                <div class="card h-100" style="max-height:321px">
+                    <a asp-action="Create" asp-controller="Videocards">
+                        <img src="/Images/pluss.png" class="card-img-top" alt="..." style="align-content:center; justify-content:center; height:321px; width:340px">
+                    </a>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+@if (User.IsInRole("Admin"))
+{
+    <br />
+    <div>
+        <a asp-action="Create" asp-controller="Vendors">Добавить производителя</a>
+    </div>
+}
+</html>
+

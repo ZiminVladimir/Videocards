@@ -1,0 +1,40 @@
+﻿@model Videocards.Models.CartItem
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+<h4>Ваш заказ: </h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <p> будет доставлен по адресу:</p>
+        <div class="form-group">
+            <input name="Address"required/>
+            <span class="text-danger"></span>
+        </div>
+        <p> Фамилия:</p>
+        <div class="form-group">
+            <input name="Lastname" required/>
+            <span class="text-danger"></span>
+        </div>
+        <p> Имя:</p>
+        <div class="form-group">
+            <input name="Name" required/>
+            <span class="text-danger"></span>
+        </div class="form-group">
+        <p> Номер телефона:</p>
+        <div class="form-group">
+            <input name="Number" required="required"/>
+            <span class="text-danger"></span>
+        </div>
+        <br/>
+        <div class="form-group row">
+            <form asp-action="Success">
+                <input type="submit" value="Подтвердить" class="btn btn-outline-primary" />
+            </form>  
+            
+            <a asp-action="Index" asp-controller="Cart" class="btn btn-primary" style="margin-left: 10px">Назад</a>
+        </div>
+    </div>
+</div>

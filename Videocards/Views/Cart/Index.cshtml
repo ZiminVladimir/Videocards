@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Videocards.Models.CartItem>
+@using  System.Web;
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+@{
+    string msg = (string)ViewBag.Msg;
+    <h2>@msg</h2>
+    if (!msg.Contains("пуста"))
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SelectVC.Vendor)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SelectVC.Name)
+                    </th> 
+                    <th>
+                        @Html.DisplayNameFor(model => model.SelectVC.Company)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SelectVC.Price)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var rowId = "itemRow" + item.SelectVC.Id;
+
+                    <tr id=@rowId>
+                        <td>
+                            @item.SelectVC.VendorName
+                        </td>
+                        <td>
+                            @item.SelectVC.Name
+                        </td>
+                        <td>
+                            @item.SelectVC.Company
+                        </td>
+                        <td>
+                            @item.SelectVC.Price
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Id">Удалить товар</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <p> Общая стоимость: <span id="totalCost">@ViewBag.Sum</span> </p>
+        <br />
+        <a asp-controller="Orders" asp-action="Index" class="btn btn-outline-primary">Оформить заказ</a>
+    }
+
+}
+<a asp-action="Index" asp-controller="Home" class="btn btn-primary">Продолжить покупки</a>

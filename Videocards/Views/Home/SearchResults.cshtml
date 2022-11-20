@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Videocards.Models.Videocard>
+@{
+    ViewData["Title"] = "Результаты";
+}
+@{
+    string msg = (string)ViewBag.Msg;
+    if (msg == null)
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var vc in Model)
+            {
+                <div class="col-4" style="margin-top: 28px;">
+                    <div class="card h-100">
+                        <img src="~/Images/@vc.ImageUrl" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@vc.Name</h5>
+                            <a asp-action="Details" asp-controller="Videocards" asp-route-id="@vc.Id" class="btn btn-outline-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <h4>К сожалению, по вашему запросу ничего не нашлось. Попробуйте поискать что-нибудь другое.</h4>
+    }
+}
+<div>
+    <a asp-action="Index" asp-controller="Home">Назад в каталог</a>
+</div>
